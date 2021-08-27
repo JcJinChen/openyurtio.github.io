@@ -1,12 +1,32 @@
-# 深度解读OpenYurt：从边缘自治看YurtHub的扩展能力
+# 从边缘自治看YurtHub的扩展能力
+2020-06-29 **阿里巴巴云原生**
+
+导读：OpenYurt 自开源以来，以非侵入式的架构设计融合云原生和边缘计算两大领域，引起了不少行业内同学的关注。阿里云推出开源项目 OpenYurt，一方面是把阿里云在云原生边缘计算领域的经验回馈给开源社区，另一方面也希望加速云计算向边缘延伸的进程，并和社区共同探讨未来云原生边缘计算架构的统一标准。
+本文主要介绍了 OpenYurt 中组件 YurtHub 的扩展能力。
+
+
+## OpenYurt介绍
+阿里云边缘容器服务上线 1 年后，正式开源了云原生边缘计算解决方案 OpenYurt，跟其他开源的容器化边缘计算方案的区别在于：OpenYurt 秉持 Extending your native Kubernetes to edge 的理念，对 Kubernetes 系统零修改，并提供一键式转换原生 Kubernetes 为 openyurt，让原生 K8s 集群具备边缘集群能力。
+
+
+
+同时随着 OpenYurt 的持续演进，也一定会继续保持如下发展理念：
+
+
+
+- 非侵入式增强 K8s
+
+- 保持和云原生社区主流技术同步演进
+
 
 ## YurtHub架构说明
+在[前面的文章](./Openyurt-04.md)中，我们介绍了 OpenYurt 的边缘自治能力，重点解读了其中的组件 YurtHub。其架构图如下：
 OpenYurt组件YurtHub构架图：
 
-![image](https://raw.githubusercontent.com/openyurtio/openyurt/master/docs/img/yurthub.png)
+![image](../img/blog_img/yurthub.png)
 
 
-YurtHub的优势之一是与Kubernetes设计理念契合，YurtHub非常容易扩展出更多的能力。
+与Kubernetes设计理念契合，YurtHub的优势之一是，非常容易扩展出更多的能力。
 
 
 ## YurtHub的拓展能力
@@ -24,7 +44,7 @@ YurtHub的优势之一是与Kubernetes设计理念契合，YurtHub非常容易�
 
 在 OpenYurt 中因为 YurtHub 的独立性，kube-proxy / flannel / coredns 等网络组件轻松使用 YurtHub 来实现网络配置的自治能力。因为 YurtHub 缓存了 service 等网络配置资源在 local storage，即使断网并且节点重启，网络组件仍然可以获得断网前的 object 状态以及相应的配置信息。如下图所示:
 
-
+![image](../img/blog_img/local_storage.png)
 
 
 问题 2，3 和 Kubernetes core 无关，主要涉及到 cni 插件和 flanneld 的增强，后续文章中再详细介绍。
@@ -45,7 +65,7 @@ YurtHub正式考虑到了上述的需求，支持多云端地址访问。云端�
 
 具体可以参照 YurtHub 的 LB 模块，如下图所示：
 
-
+![image](../img/blog_img/local_storage.png)
 
 
 ### 3）节点维度的云端流控
@@ -66,7 +86,7 @@ YurtHub 在接管节点和云端通信流量时，同时也可以接管节点的
 
 ### 5）其他
 YurtHub 除了前面介绍的扩展能力，还有很多有价值的能力，在此也简单介绍：
-- 节点多租隔离管理：在具备多租隔离能力的 Kubernetes 集群中，假定节点归属于某个租户，那么 YurtHub 将可以确保节点上所有云端请求都只返回节点所属租户的资源。比如说 list service 将只返回该租户的 service。而这种多租隔离能力不需要其他组件做任何修改。当然如果要实现集群内的多租隔离，需要配合相应的多组 CRD 等，详细可以参照项目kubernetes-sigs/multi-tenancy；
+- 节点多租隔离管理：在具备多租隔离能力的 Kubernetes 集群中，假定节点归属于某个租户，那么 YurtHub 将可以确保节点上所有云端请求都只返回节点所属租户的资源。比如说 list service 将只返回该租户的 service。而这种多租隔离能力不需要其他组件做任何修改。当然如果要实现集群内的多租隔离，需要配合相应的多组 CRD 等，详细可以参照[项目kubernetes-sigs/multi-tenancy](https://github.com/kubernetes-sigs/multi-tenancy)
 - 集群间节点迁移：某些场景下，边缘节点需要从集群 A 迁移到集群 B，常规操作是先从集群 A 下线，然后再次接入集群 B，最后在集群 B 部署节点上的应用。因为 YurtHub 对节点流量以及节点证书的接管，可以直接对 YurtHub 注入集群B的信息，让节点无损迁移到集群 B；
 - 通过域名访问云端kube-apiserver等等一些其他功能。
 
@@ -83,3 +103,5 @@ YurtHub 除了前面介绍的扩展能力，还有很多有价值的能力，在
  
 
 - YurtHub 不仅仅适用于边缘计算场景，其实还可以作为节点侧的一个常备组件，适用于使用 Kubernetes 的任意场景。相信这也会驱动 YurtHub 向更高性能，更高稳定性发展。
+
+[原文链接](https://mp.weixin.qq.com/s/gYxK3GLhDRNkHibYgTchOg)

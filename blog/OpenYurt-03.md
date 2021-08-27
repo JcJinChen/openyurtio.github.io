@@ -1,7 +1,7 @@
-## OpenYurt 入门 - 在树莓派上玩转 OpenYurt
+# 在树莓派上玩转 OpenYurt
 2021-01-05   **阿里巴巴云原生**
 
-![image]()
+![image](../img/blog_img/Raspberry_Pi.png)
 
 
 随着边缘计算的快速发展，越来越多的数据需要到网络的边缘侧进行存储、处理和分析，边缘的设备和应用呈爆发式增长。如何高效的管理边缘侧的资源和应用是业界面临的一个主要问题。当前，采用云原生的方法，将云计算的能力下沉到边缘并在云端做统一调度、管控的云边端一体化架构得到了业界的广泛认可。
@@ -12,7 +12,7 @@
 
 
 如图下所示，
-![image]()
+![image](../img/blog_img/kubernetes.png)
 
 
 
@@ -28,7 +28,7 @@
 在云端，购买 ENS 节点（ENS 节点具有公网 IP，方便通过公网对外暴露服务）来部署原生 K8s 集群的管控组件。其中系统采用 ubuntu18.04、hostname 为 master-node、docker 版本为 19.03.5。
 
 在边缘，将树莓派 4 与本地的路由器连接，组成边缘私网环境，路由器通过 4G 网卡访问互联网。其中树莓派 4 预装系统为 ubuntu18.04、hostname为 edge-node、docker 版本为 19.03.5。
-
+![image](../img/blog_img/edge_raspberry_pi.png)
 
 ### 2)原生K8s集群搭建
 本文演示环境基于社区1.16.6版本的K8s集群，并采用社区提供的kubeadm工具来搭建集群，具体操作如下：
@@ -260,6 +260,9 @@ nginx 1/1 Running 0 2m4s 192.168.0.100 edge-node <none>           <none>
 ```
 
 执行完成之后的组件分布如下图 所示，其中橙色部分是 OpenYurt 相关的组件，蓝色部分是原生 K8s 组件。相应地，我们观察云端节点和边缘节点的 pod。
+
+![image](../img/blog_img/OpenYurt_Cluster.png)
+
 
 
 云端节点 yurt 相关的 pod：yurt-controller-manager 和 yurt-tunnel-server。
