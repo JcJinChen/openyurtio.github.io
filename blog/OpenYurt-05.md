@@ -20,7 +20,7 @@
 
 
 ## YurtHub架构说明
-在[前面的文章](./Openyurt-04.md)中，我们介绍了 OpenYurt 的边缘自治能力，重点解读了其中的组件 YurtHub。其架构图如下：
+在[前面的文章](OpenYurt-04.md)中，我们介绍了 OpenYurt 的边缘自治能力，重点解读了其中的组件 YurtHub。其架构图如下：
 OpenYurt组件YurtHub构架图：
 
 ![image](../img/blog_img/yurthub.png)

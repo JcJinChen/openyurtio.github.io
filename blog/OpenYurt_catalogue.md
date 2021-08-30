@@ -10,7 +10,7 @@
 - 在树莓派上玩转OpenYurt
 [OpenYurt-03.md](./OpenYurt-03.md)
   
-- 边缘自治特性的介绍（边缘存在的问题以及OpenYurt的边缘自治能力设计细节）[Openyurt-04.md](./Openyurt-04.md)
+- 边缘自治特性的介绍（边缘存在的问题以及OpenYurt的边缘自治能力设计细节）[Openyurt-04.md](OpenYurt-04.md)
 
 - YurtHub的扩展能力
 [OpenYurt-05.md](./OpenYurt-05.md)
